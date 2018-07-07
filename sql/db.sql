@@ -1,0 +1,2 @@
+CREATE TABLE users (id SERIAL PRIMARY KEY, first_name TEXT, last_name TEXT, email TEXT, photo TEXT);
+INSERT INTO users (first_name, last_name, email, photo) VALUES ('Tyler', 'Ketron', 'tketron@gmailcom', 'http//www.fakeavatar.com');

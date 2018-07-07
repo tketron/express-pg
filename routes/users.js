@@ -41,8 +41,14 @@ router.patch('/:id', async (req, res, next) => {
   // Update and return a user
   try {
     const data = await db.query(
-      'UPDATE users SET first_name = $1, last_name  = $2, email = $3, photo = $4 RETURNING *',
-      [req.body.first_name, req.body.last_name, req.body.email, req.body.photo]
+      'UPDATE users SET first_name = $1, last_name  = $2, email = $3, photo = $4 WHERE id = $5 RETURNING *',
+      [
+        req.body.first_name,
+        req.body.last_name,
+        req.body.email,
+        req.body.photo,
+        req.params.id
+      ]
     );
     return res.json(data.rows[0]);
   } catch (e) {

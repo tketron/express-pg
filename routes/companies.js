@@ -36,7 +36,12 @@ router.get('/:id', async (req, res, next) => {
       'SELECT id FROM users WHERE current_company_id = $1',
       [req.params.id]
     );
+    const jobData = await db.query(
+      'SELECT id FROM jobs WHERE company_id = $1',
+      [req.params.id]
+    );
     companyData.rows[0].users = userData.rows.map(item => item.id);
+    companyData.rows[0].jobs = jobData.rows.map(item => item.id);
     return res.json(companyData.rows[0]);
   } catch (e) {
     return next(e);
@@ -54,7 +59,12 @@ router.patch('/:id', async (req, res, next) => {
       'SELECT id FROM users WHERE current_company_id = $1',
       [req.params.id]
     );
+    const jobData = await db.query(
+      'SELECT id FROM jobs WHERE company_id = $1',
+      [req.params.id]
+    );
     companyData.rows[0].users = userData.rows.map(item => item.id);
+    companyData.rows[0].jobs = jobData.rows.map(item => item.id);
     return res.json(companyData.rows[0]);
   } catch (e) {
     return next(e);
@@ -71,7 +81,12 @@ router.delete('/:id', async (req, res, next) => {
       'SELECT id FROM users WHERE current_company_id = $1',
       [req.params.id]
     );
+    const jobData = await db.query(
+      'SELECT id FROM jobs WHERE company_id = $1',
+      [req.params.id]
+    );
     companyData.rows[0].users = userData.rows.map(item => item.id);
+    companyData.rows[0].jobs = jobData.rows.map(item => item.id);
     await db.query('DELETE FROM companies WHERE id = $1', [req.params.id]);
     return res.json(companyData.rows[0]);
   } catch (e) {

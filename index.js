@@ -7,6 +7,7 @@ const cors = require('cors');
 // Import routes
 const userRoutes = require('./routes/users');
 const companiesRoutes = require('./routes/companies');
+const jobsRoutes = require('./routes/jobs');
 
 // Initialize app
 const app = express();
@@ -19,6 +20,7 @@ app.use(cors());
 // Mount routes
 app.use('/users', userRoutes);
 app.use('/companies', companiesRoutes);
+app.use('/jobs', jobsRoutes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const { requireAuthorization } = require('../middleware/auth');
 
-router.get('', async (req, res, next) => {
+router.get('', requireAuthorization, async (req, res, next) => {
   // Get all jobs
   try {
     const data = await db.query('SELECT * FROM jobs');
@@ -12,7 +13,7 @@ router.get('', async (req, res, next) => {
   }
 });
 
-router.post('', async (req, res, next) => {
+router.post('', requireAuthorization, async (req, res, next) => {
   // Create a new job
   try {
     const data = await db.query(
@@ -25,7 +26,7 @@ router.post('', async (req, res, next) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', requireAuthorization, async (req, res, next) => {
   // Get information about a specific job
   try {
     const data = await db.query('SELECT * FROM jobs WHERE id = $1', [
